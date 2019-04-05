@@ -1,0 +1,144 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+#include "Naranjo.h"
+
+int dim=0;
+int lim=0;
+
+/*
+Lee un valor por teclado lo valida si es entero y
+retorna el valor del entero.
+message: Muestra un mensaje al usuario
+description: Muestra un segundo mensaje al usuario
+*/
+
+
+bool exits(int value, int lastIndex, int arr[])
+{
+     for(int i=0;i<=lastIndex;i++)
+     {
+        if(arr[i] == value)
+        {
+            return true;
+        }
+     }
+     return false;
+}
+
+
+void printArray(char* title, int *arr, int n)
+{
+    printf(title);
+    for(int i=0;i<n; i++)
+    {
+        printf("\t%d",arr[i]);
+    }
+    printf("\n");
+}
+
+void setArray(int *arr)
+{
+    int value = 0;
+    for(int i=0;i<dim; i++)
+    {
+        do
+        {
+            value = getRandom(lim);
+        }
+        while(exits(value, i, arr));
+        arr[i] = value;
+    }
+}
+
+
+void join(int a[], int b[], int *u)
+{
+    for(int i=0; i<dim; i++)
+    {
+        u[i] = a[i];
+        u[i+dim] = b[i];
+    }
+}
+
+int count(int a[],int b[])
+{
+    int repeats=0;
+    for(int i=0; i<dim; i++)
+    {
+        if (exits(a[i],dim,b))
+        {
+            repeats++;
+        }
+    }
+    return repeats;
+}
+
+void section(int a[], int b[], int *I)
+{
+    int index=0;
+    for(int i=0;i<dim;i++)
+    {
+        if(exits(a[i],dim,b))
+        {
+          I[index] = a[i];
+          index++;
+        }
+    }
+}
+
+void diff(int a[], int b[], int *dif)
+{
+    int index=0;
+    for(int i=0; i<dim; i++)
+    {
+        if(!exits(a[i],dim,b))
+        {
+            dif[index]= a[i];
+            index++;
+        }
+    }
+}
+
+
+int main()
+{
+    srand(time(NULL));
+    printTitle();
+    dim = getInt("Ingrese la dimesion de los arreglos ", "==>");
+    do{
+    lim = getInt("Ingrese el valor superior del rango ", "==>");
+    }while(lim<dim);
+    int A[dim];
+    int B[dim];
+    setArray(&A);
+    setArray(&B);
+    printf("\n");
+    printArray("Arreglo A ==> ",&A,dim);
+    printf("\n");
+    printArray("Arreglo B ==> ",&B,dim);
+    printf("\n");
+    //Union
+    int dimUnion = dim*2;
+    int U[dimUnion];
+    join(A,B,&U);
+    printArray("Union ==> ",&U, dimUnion);
+    printf("\n");
+    //Interseccion
+    int numItems=count(A,B);
+    int I[numItems];
+    section(A,B,&I);
+    printArray("Interseccion ==> ",&I, numItems);
+    //Diferencia
+    int dimDif=dim-numItems;
+    int DAB[dimDif];
+    diff(A,B,&DAB);
+    printf("\n");
+    printArray("A-B ==> ",&DAB, dimDif);
+    int DBA[dimDif];
+    diff(B,A,&DBA);
+    printf("\n");
+    printArray("B-A ==> ",&DBA, dimDif);
+    return 0;
+}
