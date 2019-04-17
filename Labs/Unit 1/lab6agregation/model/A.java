@@ -1,0 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ec.edu.espe.lab6agregation.model;
+
+/**
+ *
+ * @author Jhony Naranjo
+ */
+public class A {
+    
+    
+    
+    private B b;
+    private C c;
+    private D d;
+    
+    public A(int i) {
+      b = new B(i+1);
+    }
+    
+    public B m(){
+     return b;   
+    }
+}
