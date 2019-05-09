@@ -12,11 +12,11 @@ package ec.edu.espe.lab7oopfundamentals.inheritance;
 public class Lion extends Feline{
     private boolean mane;
     
+    String inf = "";
     @Override
     public String getData() {
-        String data;
-        data = mane+ "," +isScary()+ "," +getFurThickness()+ "," +getNumberOfLegs()+ "," +getName();
-        return data;
+        inf = "{\n \t \"Mane\" : \" "+mane+" \",\n \t \"Scary\" : \" "+isScary()+" \",\n \t \"Fur Thickness\" : \" "+getFurThickness()+" \",\n \t \"Number of Legs\" : \" "+getNumberOfLegs()+" \",\n \t \"Name\" : \" "+getName()+" \" \n}";
+        return inf;
     }
 
     public Lion(boolean mane, boolean scary, int furThickness, int numberOfLegs, String name) {
