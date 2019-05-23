@@ -19,7 +19,7 @@ public class OppFundamentals {
         animal = new Lion(true,true,3,4,"Alex");
         //animal.print();
         System.out.println(animal.getData());
-        
+        //
         float money = 10;
         float moneyTax = 0;
         moneyTax = Tax.computeIva(money);
